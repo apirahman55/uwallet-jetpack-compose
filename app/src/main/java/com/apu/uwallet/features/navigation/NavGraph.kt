@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.apu.uwallet.features.screen.home.homeScreen
 import com.apu.uwallet.features.screen.intro.introScreen
 import com.apu.uwallet.features.ui.components.UWalletScaffold
 
@@ -27,6 +28,7 @@ fun NavGraph() {
             Modifier.padding(it)
         ) {
             introScreen()
+            homeScreen()
         }
     }
 }
