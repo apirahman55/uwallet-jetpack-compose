@@ -1,31 +1,32 @@
 package com.apu.uwallet.features.screen.intro
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.apu.uwallet.R
+import com.apu.uwallet.features.screen.intro.pager.IntroPagerFour
+import com.apu.uwallet.features.screen.intro.pager.IntroPagerIndicator
+import com.apu.uwallet.features.screen.intro.pager.IntroPagerOne
+import com.apu.uwallet.features.screen.intro.pager.IntroPagerThree
+import com.apu.uwallet.features.screen.intro.pager.IntroPagerTwo
 import com.apu.uwallet.features.ui.components.UWalletScaffold
 import com.apu.uwallet.features.ui.theme.Gray100
-import com.apu.uwallet.features.ui.theme.Gray500
-import com.apu.uwallet.features.ui.theme.Primary1000
 import com.apu.uwallet.features.ui.theme.Primary300
 import com.apu.uwallet.features.ui.theme.UWalletTheme
 
@@ -38,8 +39,11 @@ fun IntroScreen(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Content() {
+    val pagerState = rememberPagerState(pageCount = { 4 })
+
     Box(
         modifier = Modifier
             .padding(top = 84.dp)
@@ -58,35 +62,32 @@ fun Content() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                .padding(vertical = 24.dp, horizontal = 16.dp)
+                .padding(vertical = 24.dp)
                 .fillMaxHeight()
         ) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.intro_multicurrency),
-                    contentDescription = "Intro Multicurrency",
-                    modifier = Modifier.size(240.dp)
-                )
-                Box(modifier = Modifier.size(40.dp))
-                Text(
-                    text = "Multicurrency",
-                    style = MaterialTheme.typography.headlineMedium,
-                )
-                Box(modifier = Modifier.size(16.dp))
-                Text(
-                    text = "Get access to over 20 cryptocurrencies, stablecoins and fiat payment systems.",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Gray100,
-                    textAlign = TextAlign.Center
-                )
+            Column {
+                HorizontalPager(
+                    state = pagerState,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 40.dp)
+                ) {
+                    when (it) {
+                        0 -> IntroPagerOne()
+                        1 -> IntroPagerTwo()
+                        2 -> IntroPagerThree()
+                        3 -> IntroPagerFour()
+                    }
+                }
+
+                IntroPagerIndicator(pagerState)
             }
 
             Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
             ) {
                 Button(
                     onClick = {},
@@ -106,7 +107,8 @@ fun Content() {
 
                 Button(
                     onClick = {},
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .padding(top = 16.dp)
                         .border(
                             border = BorderStroke(1.dp, Gray100),
