@@ -3,15 +3,11 @@ package com.apu.uwallet.features.screen.intro
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,6 +21,7 @@ import com.apu.uwallet.features.screen.intro.pager.IntroPagerIndicator
 import com.apu.uwallet.features.screen.intro.pager.IntroPagerOne
 import com.apu.uwallet.features.screen.intro.pager.IntroPagerThree
 import com.apu.uwallet.features.screen.intro.pager.IntroPagerTwo
+import com.apu.uwallet.features.ui.components.UWalletButton
 import com.apu.uwallet.features.ui.components.UWalletScaffold
 import com.apu.uwallet.features.ui.theme.Gray100
 import com.apu.uwallet.features.ui.theme.Primary300
@@ -89,43 +86,23 @@ fun Content() {
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
             ) {
-                Button(
-                    onClick = {},
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Primary300,
-                    ),
-                ) {
-                    Text(
-                        text = "Create a new wallet",
-                        color = Color.White,
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(vertical = 8.dp)
-                    )
-                }
 
-                Button(
+                UWalletButton(
                     onClick = {},
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp)
-                        .border(
-                            border = BorderStroke(1.dp, Gray100),
-                            shape = RoundedCornerShape(16.dp)
-                        ),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Transparent,
-                    ),
-                ) {
-                    Text(
-                        text = "I already have a wallet",
-                        color = Color.White,
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(vertical = 8.dp)
+                    text = "Create a new wallet",
+                    color = ButtonDefaults.buttonColors(
+                        containerColor = Primary300,
                     )
-                }
+                )
+
+                UWalletButton(
+                    onClick = {},
+                    text = "I already have a wallet",
+                    border = BorderStroke(1.dp, Gray100),
+                    color = ButtonDefaults.buttonColors(
+                        containerColor = Color.Transparent,
+                    )
+                )
             }
         }
     }
